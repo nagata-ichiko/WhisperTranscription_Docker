@@ -22,8 +22,8 @@ RUN pip install -r requirements.txt
 RUN pip install ctranslate2 OpenNMT-py sentencepiece
 # transformers
 RUN pip install transformers
-# Model変換
-RUN ct2-transformers-converter --model openai/whisper-large-v2 --output_dir whisper-large-v2-ct2 \
-    --copy_files tokenizer.json --quantization float16
+# # Model変換
+# RUN ct2-transformers-converter --model openai/whisper-large-v2 --output_dir whisper-large-v2-ct2 \
+#     --copy_files tokenizer.json --quantization float16
 
 ENTRYPOINT ["python", "src/WhisperGradioApp_CPU.py"]

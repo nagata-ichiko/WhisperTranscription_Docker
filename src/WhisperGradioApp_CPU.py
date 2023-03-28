@@ -2,16 +2,15 @@ from multiprocessing.sharedctypes import Value
 import whisper
 from faster_whisper import WhisperModel
 import gradio as gr 
-model_path = "whisper-large-v2-ct2/"
+model = "large-v2"
 from datetime import timedelta
 from srt import Subtitle
 import srt
 
-model = WhisperModel(model_path, device="cpu", compute_type="int8")
+model = WhisperModel(model, device="cpu", compute_type="int8")
 
 def speechRecognitionModel(input): 
     segments, _ = model.transcribe(input,language="ja", beam_size=2, word_timestamps=False)    
-    seginfo = result["segments"]
     out_text = []
     # segment情報から発言の開始/終了時間とテキストを抜き出し、srt形式で編集する
     for segment in segments:
@@ -34,7 +33,7 @@ def speechRecognitionModel(input):
         origin = origin.replace(",,","\n")
         f.write(origin)
     
-    return result
+    return out_text
 
 gr.Interface(
     title = 'Whisper Sample App', 

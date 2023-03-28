@@ -36,4 +36,4 @@ services:
       - "8070:8070"
     volumes:
       - ./src:/root/src/
-    command: sh -c 'pip install --upgrade pip && pip install -r requirements.txt'
+    # command: sh -c 'pip install --upgrade pip && pip install -r requirements.txt'
