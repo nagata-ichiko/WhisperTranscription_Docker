@@ -1,0 +1,34 @@
+# GPU
+# version: "3"
+# services:
+#   whisper_gpu:
+#     build:
+#       context: .
+#       dockerfile: ./Dockerfile
+#     container_name: "whisper-gpu"
+#     working_dir: "/root/"
+#     tty: true
+#     volumes:
+#       - ./src:/root/src/
+#     deploy:
+#       resources:
+#         reservations:
+#           devices:
+#             - driver: nvidia
+#               capabilities: [gpu]
+#     environment:
+#       - NVIDIA_VISIBLE_DEVICES=all
+#       - NVIDIA_DRIVER_CAPABILITIES=all
+
+# CPU
+version: "3"
+services:
+  whisper_cpu:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: "whisper-cpu"
+    working_dir: "/root/"
+    tty: true
+    volumes:
+      - ./src:/root/src/

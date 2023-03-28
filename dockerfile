@@ -1,11 +1,20 @@
-FROM ubuntu:22.04
+FROM pytorch/pytorch:1.9.0-cuda10.2-cudnn7-runtime
 
-RUN apt-get -y update
-RUN apt-get -y install python3 pip
-RUN pip install ctranslate2 OpenNMT-py sentencepiece
+ENV TZ=Asia/Tokyo
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-COPY src/translate.py /usr/bin/
-WORKDIR /var/opt/ctranslate2
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    gcc \
+    git \
+    python3-tk \
+    portaudio19-dev \
+    ffmpeg \
+    && rm -rf /var/lib/apt/lists/*  
 
-ENTRYPOINT [ "translate.py" ]
-CMD [ "Hello world!" ]
+RUN pip install --upgrade pip
+COPY requirements.txt /root/
+WORKDIR /root/
+RUN pip install -r requirements.txt
+
+ENTRYPOINT ["python", "src/WhisperGradioApp.py"]
