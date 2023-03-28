@@ -26,9 +26,13 @@ services:
   whisper_cpu:
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: ./dockerfile_CPU
     container_name: "whisper-cpu"
+    expose:
+      - "8070"
     working_dir: "/root/"
     tty: true
+    ports:
+      - "8070:8070"
     volumes:
       - ./src:/root/src/

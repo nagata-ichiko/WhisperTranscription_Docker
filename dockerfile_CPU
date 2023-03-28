@@ -1,4 +1,4 @@
-FROM pytorch/pytorch:1.9.0-cuda10.2-cudnn7-runtime
+FROM python:3.9-slim
 
 ENV TZ=Asia/Tokyo
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -17,4 +17,10 @@ COPY requirements.txt /root/
 WORKDIR /root/
 RUN pip install -r requirements.txt
 
-ENTRYPOINT ["python", "src/WhisperGradioApp.py"]
+# Codon
+RUN /bin/bash -c "$(curl -fsSL https://exaloop.io/install.sh)"
+# ctranslate2
+RUN pip install ctranslate2 OpenNMT-py sentencepiece
+
+ENTRYPOINT ["python", "src/WhisperGradioApp_CPU.py"]
+# ENTRYPOINT コマンド パラメータ1 パラメータ2

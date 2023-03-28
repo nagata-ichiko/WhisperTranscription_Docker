@@ -5,12 +5,12 @@ from datetime import timedelta
 from srt import Subtitle
 import srt
 # モデル選択、下に行くほどデカくて遅いが高精度
-# model = whisper.load_model("tiny")
+model = whisper.load_model("tiny")
 # model = whisper.load_model("base")
 # model = whisper.load_model("small")
 # model = whisper.load_model("medium")
 # model = whisper.load_model("large")
-model = whisper.load_model("large-v2")
+# model = whisper.load_model("large-v2")
 
 def speechRecognitionModel(input): 
     result = model.transcribe(input, verbose=True, language="ja")    
@@ -38,46 +38,6 @@ def speechRecognitionModel(input):
     
     return result
 
-def changeInputTypeVideo():
-    gr.Interface(    
-        title = 'Whisper Sample App', 
-        fn=speechRecognitionModel, 
-        inputs=[
-            # 動画ファイル
-            gr.Video(type="filepath")
-        ],
-        outputs=[
-            "textbox"
-        ],
-        live=True).launch()
-
-def changeInputTypeAudio():
-    gr.Interface(    
-        title = 'Whisper Sample App', 
-        fn=speechRecognitionModel, 
-        inputs=[
-            # 音声ファイル
-            gr.Audio(type="filepath")
-        ],
-        outputs=[
-            "textbox"
-        ],
-        live=True).launch()
-
-def changeInputTypeMic():
-    gr.Interface(    
-        title = 'Whisper Sample App', 
-        fn=speechRecognitionModel, 
-        inputs=[
-            # マイク入力
-            gr.inputs.Audio(source="microphone", type="filepath")        
-        ],
-        outputs=[
-            "textbox"
-        ],
-        live=True).launch()
-
-
 gr.Interface(
     title = 'Whisper Sample App', 
     fn=speechRecognitionModel, 
@@ -88,4 +48,4 @@ gr.Interface(
     outputs=[
         "textbox"
     ],
-    live=True).launch()
+    live=True).launch(server_name = "0.0.0.0", server_port=8070, share=True)
