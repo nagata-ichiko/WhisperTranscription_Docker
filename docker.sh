@@ -3,15 +3,18 @@ docker exec -it whisper-gpu bash -c "
 
     # コマンドを実行する
     # pip freeze > requirements_conda.txt
+    conda update conda
     conda init
-    echo 'conda activate py39_env' >> ~/.bashrc
     conda config --set env_prompt '({name})'
     conda config --set default_env py39_env
     conda init
-    pip install --upgrade pip
-    pip install -r requirements_conda.txt
-    pip install -r requirements.txt
-    pip install ctranslate2 OpenNMT-py sentencepiece
-    pip install transformers
+  "
+
+docker exec -it whisper-gpu bash -c "
+    # conda install --name py39_env --file requirements_conda.txt
+    pip install --upgrade pip --user
+    pip install -r requirements.txt  --user
+    pip install ctranslate2 OpenNMT-py sentencepiece  --user
+    pip install transformers --user
     python src/WhisperGradioApp_CPU.py
 "
