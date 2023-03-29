@@ -10,11 +10,16 @@ services:
     #   - "8070"
     working_dir: "/root/"
     tty: true
+    stdin_open: true
     # ports:
     #   - "8070:8070"
     volumes:
       - ./src:/root/src/
-    # command: sh -c 'exec $SHELL -l && conda activate py39_env && pip install --upgrade pip && pip install -r requirements_conda.txt && pip install -r requirements.txt &&ip install ctranslate2 OpenNMT-py sentencepiece && pip install transformers'
+      - ./commands:/root/commands/
+    # entrypoint: >
+    #   sh -c "
+    #     sh commands/start.sh
+    #   "
     # deploy:
     #   resources:
     #     reservations:
