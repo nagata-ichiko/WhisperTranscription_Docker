@@ -9,35 +9,32 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     gcc \
     git \
+    ffmpeg \
     && rm -rf /var/lib/apt/lists/*  
 
-RUN conda update -n base -c defaults conda
-RUN conda create -n py39_env python==3.9.7
+RUN pip freeze > requirements_conda.txt
 
-RUN pip freeze > /root/requirements_conda.txt
-COPY requirements.txt /root/
-
-# # RUN . /root/.bashrc && \
-# #     conda update -n base -c defaults conda && \
-# #      && \
-# #      bashrc  && \
-# #      && \
-# #     conda install -c rdkit -c conda-forge rdkit --override-channels
-# RUN conda update conda
-# RUN conda update -n base -c defaults conda
 # RUN . /root/.bashrc && \
-#     conda init bash && \
-#     conda create -n py39_env python=3.9 anaconda && \
-#     conda activate py39_env
+#     conda update -n base -c defaults conda && \
+#     conda create -n py39_env python==3.9 && \
+#     conda init bashrc  && \
+#     conda activate py39_env && \
+#     conda install -c rdkit -c conda-forge rdkit --override-channels
+RUN conda update conda
+RUN conda update -n base -c defaults conda
+RUN . /root/.bashrc && \
+    conda init bash && \
+    conda create -n py39_env python=3.9 anaconda && \
+    conda activate py39_env
 
-# # CMD pip install --upgrade pip
-# # COPY requirements.txt /root/
-# # WORKDIR /root/
-# # CMD pip install -r requirements.txt
+# CMD pip install --upgrade pip
+# COPY requirements.txt /root/
+# WORKDIR /root/
+# CMD pip install -r requirements.txt
 
-# # # ctranslate2
-# # CMD pip install ctranslate2 OpenNMT-py sentencepiece
-# # # # transformers
-# # CMD pip install transformers
+# # ctranslate2
+# CMD pip install ctranslate2 OpenNMT-py sentencepiece
+# # # transformers
+# CMD pip install transformers
 
-# # ENTRYPOINT ["python", "src/WhisperGradioApp_GPU.py"]
+# ENTRYPOINT ["python", "src/WhisperGradioApp_GPU.py"]
