@@ -19,7 +19,6 @@ RUN conda create -n py39_env python==3.9.7
 
 COPY requirements.txt /root/
 
-
 # # RUN . /root/.bashrc && \
 # #     conda update -n base -c defaults conda && \
 # #      && \
