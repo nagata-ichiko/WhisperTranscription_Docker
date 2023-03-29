@@ -6,14 +6,20 @@
 
 OpenAI が開発した文字起こし翻訳モデル Whisper と Dokcer と Gradio を使用した文字起こしアプリを作ります。
 
-# Codon
+# 実行
 
-実行コマンド
+CPU ブランチをクローン
 
-```
-codon run XXXX.py
-```
+以下を実行
 
 ```
-codon run -release XXX.py
+docker-compose up
+```
+
+モデルがダウンロードされるのを待つ
+
+起動後以下にアクセス
+
+```
+http://0.0.0.0:8070/
 ```
