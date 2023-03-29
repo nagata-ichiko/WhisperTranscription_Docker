@@ -11,13 +11,10 @@ model = WhisperModel(model, device="cpu", compute_type="int8")
 
 def speechRecognitionModel(input): 
     segments, _ = model.transcribe(input,language="ja", beam_size=2, word_timestamps=False)    
-    result =""
     out_text = []
     # segment情報から発言の開始/終了時間とテキストを抜き出し、srt形式で編集する
     for segment in segments:
         print("[%.2fs -> %.2fs] %s" % (segment.start, segment.end, segment.text))
-        result += "[%.2fs -> %.2fs] %s" % (segment.start, segment.end, segment.text)
-        result += "\n"
         start = segment.start
         end = segment.end
         text = segment.text
@@ -29,14 +26,14 @@ def speechRecognitionModel(input):
                             content=text,\
                             proprietary='')
         out_text.append(out_line)
-    with open("src/sample" + ".csv", mode="w", encoding="utf-8") as f:
+    with open("sample" + ".csv", mode="w", encoding="utf-8") as f:
         origin = srt.compose(out_text)
         origin = origin.replace(",",".")
         origin = origin.replace("\n",",")
         origin = origin.replace(",,","\n")
         f.write(origin)
     
-    return result
+    return out_text
 
 gr.Interface(
     title = 'Whisper Sample App', 
