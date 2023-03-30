@@ -1,0 +1,6 @@
+git+https://github.com/openai/whisper.git 
+gradio
+ffmpeg
+faster-whisper
+srt
+subtitle
