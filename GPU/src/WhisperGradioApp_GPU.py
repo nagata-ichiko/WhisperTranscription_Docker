@@ -41,7 +41,6 @@ def speechRecognitionModel(input):
 gr.Interface(
     title = 'Whisper Sample App', 
     fn=speechRecognitionModel, 
-	@@ -88,4 +48,4 @@ def changeInputTypeMic():
     outputs=[
         "textbox"
     ],
