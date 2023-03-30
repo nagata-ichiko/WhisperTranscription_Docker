@@ -6,29 +6,29 @@ services:
       context: .
       dockerfile: ./dockerfile_GPU
     container_name: "whisper-gpu"
-    # expose:
-    #   - "8070"
+    expose:
+      - "8070"
     working_dir: "/root/"
     tty: true
     stdin_open: true
-    # ports:
-    #   - "8070:8070"
+    ports:
+      - "8070:8070"
     volumes:
       - ./src:/root/src/
       - ./commands:/root/commands/
-    # entrypoint: >
-    #   sh -c "
-    #     sh commands/start.sh
-    #   "
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - driver: nvidia
-    #           capabilities: [gpu]
-    # environment:
-    #   - NVIDIA_VISIBLE_DEVICES=all
-    #   - NVIDIA_DRIVER_CAPABILITIES=all
+    entrypoint: >
+      sh -c "
+        python src/whisperGradioApp_GPU.py
+      "
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
 # CPU
 # version: "3"
 # services:
